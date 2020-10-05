@@ -1,68 +1,70 @@
-const validator = require('validator')
-const Nodes = require('./node.js')
 const chalk = require('chalk')
 const yargs = require('yargs')
- 
-//Change version 
+const notes = require('./notes.js')
+
+// Customize yargs version
 yargs.version('1.1.0')
 
-
-
+// Create add command
 yargs.command({
     command: 'add',
-    descibe: 'Add a new note',
+    describe: 'Add a new note',
     builder: {
         title: {
-            describe: "note title",
+            describe: 'Note title',
             demandOption: true,
             type: 'string'
         },
-
         body: {
-            descibe: "Body of note",
+            describe: 'Note body',
             demandOption: true,
             type: 'string'
         }
     },
-    handler: function (argv){
-        console.log('Title: ' + argv.title)
-        console.log('\nNote: ' + argv.body)
-        Nodes.addNotes(argv.title, argv.body)
+    handler(argv) {
+        notes.addNote(argv.title, argv.body)
     }
 })
 
-
+// Create remove command
 yargs.command({
     command: 'remove',
-    descibe: 'Remove a new note',
+    describe: 'Remove a note',
     builder: {
         title: {
-            describe: "note title",
+            describe: 'Note title',
             demandOption: true,
             type: 'string'
         }
     },
-    handler: function (argv){
-        console.log('Removing a Note')
-        Nodes.removeNote(argv.title)
+    handler(argv) {
+        notes.removeNote(argv.title)
     }
 })
 
+// Create list command
 yargs.command({
     command: 'list',
-    descibe: 'List out all notes',
-    handler: function (){
-        console.log('Listing Notes')
+    describe: 'List your notes',
+    handler() {
+        notes.listNotes()
     }
 })
 
+// Create read command
 yargs.command({
     command: 'read',
-    descibe: 'Read a note',
-    handler: function (){
-        console.log('Reading Note')
+    describe: 'Read a note',
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        notes.readNote(argv.title)
     }
 })
-
 
 yargs.parse()

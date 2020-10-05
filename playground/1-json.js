@@ -1,26 +1,11 @@
 const fs = require('fs')
 
-// const book = {
-//     title: 'Josh',
-//     author: "Dick"
-// }
-
-// const bookJSON = JSON.stringify(book)
-// console.log(bookJSON)
-
-// const parsedData = JSON.parse(bookJSON)
-// console.log(parsedData)
-
-// fs.writeFileSync('test.JSON', bookJSON)
-
-const dataBuffer = fs.readFileSync('test.JSON')
+const dataBuffer = fs.readFileSync('1-json.json')
 const dataJSON = dataBuffer.toString()
-const data = JSON.parse(dataJSON)
+const user = JSON.parse(dataJSON)
 
-data.name = "Joshua"
-data.age = 27
+user.name = 'Gunther'
+user.age = 54
 
-console.log(data.name, data.age)
-
-const writeBuffer = JSON.stringify(data)
-fs.writeFileSync('test.JSON', writeBuffer)
+const userJSON = JSON.stringify(user)
+fs.writeFileSync('1-json.json', userJSON)
